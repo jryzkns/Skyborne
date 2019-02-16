@@ -59,14 +59,8 @@ cmd.commandtable = {}
 
 function cmd.commandtable:EXIT() love.event.quit() end
 
--- propel: move forward on navigation track at a faster than usual speed, will use more energy
 function cmd.commandtable:PROPEL()
-
-        -- a probability to trigger a minigame
-
-        if math.random() <= 0.1 then
-                cmd.mode = "RACE"
-        end
+        if math.random() <= 0.1 then cmd.mode = "RACE" end
 
         cmd.commandtable:CLEAR()
         local result = (math.random(100) <= cmd.power) and "PROPEL SUCCESS" or "Program received signal SIGSEGV, Segmentation fault"
@@ -80,15 +74,12 @@ function cmd.commandtable:PROPEL()
                 cmd.distance_covered = cmd.distance_covered + 5
         end
 end
--- prospect: seeks possible extractable meteors freefloating to gain and restore some energy, will spend energy but will only get returns probabilistically
-function cmd.commandtable:PROSPECT()
 
+function cmd.commandtable:PROSPECT()
 
         math.random(os.time())
 
-        if math.random() <= 0.1 then
-                cmd.mode = "DODGE"
-        end
+        if math.random() <= 0.1 then cmd.mode = "DODGE" end
 
         cmd.commandtable:CLEAR()
 
