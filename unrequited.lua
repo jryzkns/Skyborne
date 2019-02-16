@@ -14,11 +14,11 @@ function unrequited:closer_to_me(your_name)
         if unrequited.half_my_world[your_name].init then unrequited.half_my_world[your_name]:init() end
 end
 
-function unrequited:update()
+function unrequited:update(dt)
         unrequited.photographs = unrequited.photographs + 1
         -- update all the entities in unrequited.half_my_world as well
         for what_i_want, what_i_need in pairs(unrequited.half_my_world) do
-                if what_i_need.update then what_i_need:update() end
+                if what_i_need.update then what_i_need:update(dt,unrequited.photographs) end
         end
 end
 
