@@ -35,9 +35,10 @@ function cmd:keypressed(key,scancode,isrepeat)
                 -- deal with command table here
                 if cmd.commandtable[cmd.command] then 
                         cmd.commandtable[cmd.command]()
-                        cmd.power = cmd.power - 5
+                        cmd.power = cmd.power - 3
                         cmd.failedcmd = false
                 else
+                        cmd.power = cmd.power - 1
                         cmd.failedcmd = true
                 end
                 cmd.command = ""
