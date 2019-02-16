@@ -44,6 +44,18 @@ function love.update(dt)
                 end
                 unrequited:update(dt)
         end
+        if game.currentstate == "RACE" then
+                if unrequited.half_my_world["race"].currentstate == "DONE" then
+                        game.currentstate = "CONTROL"
+                        unrequited.half_my_world["cmd"].currentstate = "NONE"
+                end
+        end
+        if game.currentstate == "DODGE" then
+                if unrequited.half_my_world["dodge"].currentstate == "DONE" then
+                        game.currentstate = "CONTROL"
+                        unrequited.half_my_world["cmd"].currentstate = "NONE"
+                end
+        end
 end
 
 function love.mousepressed(x,y,button,istouch,presses) unrequited:mousepressed(x,y,button,istouch,presses) end

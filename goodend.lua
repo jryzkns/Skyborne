@@ -1,5 +1,8 @@
 local goodend = {}
 
+goodend.statuses = {"RUNNING","DONE"}
+goodend.currentstate = "RUNNING"
+
 goodend.xdim,goodend.ydim = 0,0
 function goodend:getGameState(game) if game.xdim and game.ydim then goodend.xdim,goodend.ydim = game.xdim,game.ydim end end
 
