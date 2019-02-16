@@ -1,13 +1,5 @@
 local unrequited = require("unrequited")
 
--- be kind
--- flight
--- dangers in space
--- energy
-
--- STEP ONE implement a commandline
--- STEP TWO script soybean into the game, decide on a interaction medium
-
 function love.load()
         game = {}
         game.xdim, game.ydim = 1200,600
@@ -21,11 +13,20 @@ function love.load()
         unrequited:closer_to_me("cmd")
         unrequited.half_my_world["cmd"]:getGameState(game)
         unrequited:closer_to_me("S0YB3AN")
+        unrequited.half_my_world["S0YB3AN"]:getGameState(game)
 end
 
 function love.update(dt)
         if not unrequited.waiting then
                 unrequited.half_my_world["UI"]:getPower(unrequited.half_my_world["cmd"].power)
+                if unrequited.half_my_world["cmd"].failedcmd then
+                        unrequited.half_my_world["S0YB3AN"].current_effect = "SEISMIC"
+                end
+
+                if unrequited.half_my_world["cmd"].idle > 300 and unrequited.half_my_world["S0YB3AN"].current_effect ~= "ANGER" then
+                        unrequited.half_my_world["S0YB3AN"].current_effect = "ANGER"
+                end
+
                 if unrequited.half_my_world["cmd"].power <= 0 then
                         -- IMPLEMENT BADEND SEQUENCE
                         game.currentstate = "BADENDSEQ"
@@ -67,7 +68,7 @@ end
 function love.draw()
         if game.currentstate == "CONTROL" then
                 unrequited.half_my_world["UI"]:draw()
-                unrequited.half_my_world["S0YB3AN"]:effects()
+                unrequited.half_my_world["S0YB3AN"]:effects(unrequited.photographs)
                 unrequited.half_my_world["cmd"]:draw()
                 unrequited.half_my_world["S0YB3AN"]:draw()
         end

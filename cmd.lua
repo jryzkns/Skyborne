@@ -1,12 +1,10 @@
 local initmsg = "HOPE-SS aviation System. Jekco™\n"..
                 "                         \\   /      \n"..
                 "            .\\___-/.\\-___/. \n"..
-                "                         ~`-'~      \n"..
+                "                        ~`-'~      \n"..
                 "All Rights Reserved 2066.\n"..
                 "jryzkns 2019\n"..
                 "----------------------------\n\n"
-
-
 
 local cmd = {}
 
@@ -19,9 +17,15 @@ cmd.command_issued = false
 cmd.response = ""
 cmd.complete = false
 cmd.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",30)
+cmd.failedcmd = false
+cmd.idle = 0
 
+function cmd:update(dt,frames)
+        cmd.idle = cmd.idle + 1
+end
 
 function cmd:keypressed(key,scancode,isrepeat)
+        cmd.idle = 0
         if key == "backspace" then cmd.command = cmd.command:sub(1,cmd.command:len()-1) end
         if key == "return" then 
                 cmd.commands_issued = cmd.commands_issued + 1
@@ -32,8 +36,9 @@ function cmd:keypressed(key,scancode,isrepeat)
                 if cmd.commandtable[cmd.command] then 
                         cmd.commandtable[cmd.command]()
                         cmd.power = cmd.power - 5
+                        cmd.failedcmd = false
                 else
-                        -- shock factor?
+                        cmd.failedcmd = true
                 end
                 cmd.command = ""
         end
