@@ -16,7 +16,7 @@ intro.text = {
 
 intro.current_text = 1
 
-intro.statuses = {"RUNNING","DONE"}
+intro.statuses = {"RUNNING","DONE","OVER"}
 intro.currentstate = "RUNNING"
 
 function intro:init()
@@ -28,7 +28,7 @@ function intro:getGameState(game) if game.xdim and game.ydim then intro.xdim,int
 
 function intro:keypressed(key,scancode,isrepeat)
         intro.current_text = intro.current_text + 1
-        if intro.current_text > #intro.text and intro.currentstate == "RUNNING" then -- hardcoding the number in here?
+        if intro.current_text > #intro.text and intro.currentstate == "RUNNING" then
                 intro.currentstate = "DONE"
         end
 end

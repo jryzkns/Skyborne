@@ -21,7 +21,7 @@ cmd.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",30)
 cmd.failedcmd = false
 cmd.idle = 0
 cmd.response = ""
-cmd.distance_covered = 0
+cmd.distance_covered = 49 -- easy mode
 cmd.modes = {"NONE","RACE","DODGE"}
 cmd.mode = "NONE"
 

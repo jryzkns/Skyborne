@@ -4,7 +4,7 @@ function love.load()
         game = {}
         game.xdim, game.ydim = 1200,600
         game.title = "Airborne Rhapsody - jryzkns 2019"
-        game.states = {"STARTUP","BADEND","GOODEND","CONTROL","RACE","DODGE"}
+        game.states = {"STARTUP","BADEND","GOODEND","CONTROL","RACE","DODGE","CREDITS"}
         game.currentstate = "STARTUP"
         -- game.currentstate = "CONTROL"
         unrequited:windowsetup(game.xdim,game.ydim,game.title)
@@ -21,7 +21,15 @@ function love.load()
 end
 
 function love.update(dt)
-        if unrequited.half_my_world["intro"].currentstate == "DONE" then game.currentstate = "CONTROL" end
+        if game.currentstate == "GOODEND" or game.currentstate == "BADEND" then
+                if unrequited.half_my_world[string.lower(game.currentstate)].currentstate == "DONE" then
+                        game.currentstate = "CREDITS"
+                end
+        end
+        if unrequited.half_my_world["intro"].currentstate == "DONE" then 
+                unrequited.half_my_world["intro"].currentstate = "OVER"
+                game.currentstate = "CONTROL" 
+        end
         if game.currentstate == "CONTROL" then
                 if unrequited.half_my_world["cmd"].power > 100 then unrequited.half_my_world["cmd"].power = 100 end
                 unrequited.half_my_world["UI"]:getPower(unrequited.half_my_world["cmd"].power)
@@ -29,12 +37,20 @@ function love.update(dt)
                         unrequited.half_my_world["S0YB3AN"].current_effect = "SEISMIC"
                 end
 
-                if unrequited.half_my_world["cmd"].idle > 500 and unrequited.half_my_world["S0YB3AN"].current_effect ~= "ANGER" then
-                        unrequited.half_my_world["S0YB3AN"].current_effect = "ANGER"
-                end
+                -- if unrequited.half_my_world["cmd"].idle > 500 and unrequited.half_my_world["S0YB3AN"].current_effect ~= "ANGER" then
+                --         unrequited.half_my_world["S0YB3AN"].current_effect = "ANGER"
+                -- end
 
-                if unrequited.half_my_world["cmd"].power <= 0 then game.currentstate = "BADEND" end
-                if unrequited.half_my_world["cmd"].distance_covered > 50 then game.currentstate = "GOODEND" end
+                if unrequited.half_my_world["cmd"].power <= 0 then 
+                        unrequited.half_my_world["badend"].current_text = 1
+                        unrequited.half_my_world["badend"].currentstate = "RUNNING"
+                        game.currentstate = "BADEND" 
+                end
+                if unrequited.half_my_world["cmd"].distance_covered > 50 then 
+                        unrequited.half_my_world["goodend"].current_text = 1
+                        unrequited.half_my_world["goodend"].currentstate = "RUNNING"
+                        game.currentstate = "GOODEND" 
+                end
                 if unrequited.half_my_world["cmd"].mode == "RACE" or unrequited.half_my_world["cmd"].mode == "DODGE" then
                         if not unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)].has_init then
                                 unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)]:game_init()
@@ -43,26 +59,23 @@ function love.update(dt)
                 end
         end
         if game.currentstate == "RACE" or game.currentstate == "DODGE" then
+                print("shouldn't be in minigame")
+                if game.currentstate ~= "CONTROL" then
+                        unrequited.half_my_world[string.lower(game.currentstate)]:update()
+                end
                 if unrequited.half_my_world[string.lower(game.currentstate)].currentstate == "DONE" then
                         game.currentstate = "CONTROL"
                         unrequited.half_my_world["cmd"].currentstate = "NONE"
                         unrequited.half_my_world["cmd"].power,unrequited.half_my_world["cmd"].distance_covered = unrequited.half_my_world["cmd"].power+10, unrequited.half_my_world["cmd"].distance_covered+15
                 elseif unrequited.half_my_world[string.lower(game.currentstate)].currentstate == "FAILED" then
+                        unrequited.half_my_world["badend"].currentstate = "RUNNING"
                         game.currentstate = "BADEND"
-                        return -- lazy fix
                 end
-                if game.currentstate ~= "CONTROL" then
-                        unrequited.half_my_world[string.lower(game.currentstate)]:update()
-                end
-        end
-
-        if game.currentstate == "GOODEND" or game.currentstate == "BADEND" then
-                unrequited.half_my_world[string.lower(game.currentstate)]:update()
         end
 end
 
 function love.mousepressed(x,y,button,istouch,presses) unrequited:mousepressed(x,y,button,istouch,presses) end
-function love.mousereleased(x,y,button,istouch,presses) unrequited:mousereleased(x,y,button,istouch,presses)end
+function love.mousereleased(x,y,button,istouch,presses) unrequited:mousereleased(x,y,button,istouch,presses) end
 function love.textinput(char)
         if game.currentstate == "CONTROL" then
                 unrequited.half_my_world["cmd"]:textinput(char) 
@@ -99,7 +112,11 @@ function love.draw()
                 unrequited.half_my_world["goodend"]:draw()
         elseif game.currentstate == "BADEND" then
                 unrequited.half_my_world["badend"]:draw()
+        elseif game.currentstate == "CREDITS" then
+                print("end!")
+                -- boop
         end
+        -- code in credits
 
 
         mouse()
