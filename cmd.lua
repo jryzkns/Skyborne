@@ -1,4 +1,12 @@
-local initmsg = "WELCOME TO AIRCRAFT CONTROL\n"
+local initmsg = "HOPE-SS aviation System. Jekco™\n"..
+                "                         \\   /      \n"..
+                "            .\\___-/.\\-___/. \n"..
+                "                         ~`-'~      \n"..
+                "All Rights Reserved 2066.\n"..
+                "jryzkns 2019\n"..
+                "----------------------------\n\n"
+
+
 
 local cmd = {}
 
@@ -10,6 +18,8 @@ cmd.commands_issued = 0
 cmd.command_issued = false
 cmd.response = ""
 cmd.complete = false
+cmd.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",30)
+
 
 function cmd:keypressed(key,scancode,isrepeat)
         if key == "backspace" then cmd.command = cmd.command:sub(1,cmd.command:len()-1) end
@@ -56,6 +66,7 @@ function cmd:draw()
         for _,pastcommand in pairs(cmd.history) do lines = lines .. cmd.prompt .. pastcommand .. "\n" end
         lines = lines .. cmd.prompt .. cmd.command
         love.graphics.setColor(0,0.1,0,1)
+        love.graphics.setFont(cmd.font)
         love.graphics.printf(lines,0,0,cmd.xdim,"left")
         love.graphics.setColor(1,1,1,1)
 end

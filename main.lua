@@ -16,7 +16,6 @@ function love.load()
         game.currentstate = "CONTROL"
         unrequited:windowsetup(game.xdim,game.ydim,game.title)
         love.mouse.setVisible(false)
-        love.graphics.setNewFont("BebasNeue-Regular.ttf",50)
 
         unrequited:closer_to_me("UI")
         unrequited:closer_to_me("cmd")
