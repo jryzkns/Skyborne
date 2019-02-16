@@ -50,7 +50,6 @@ function race:update()
                 end
                 if dist(race.player.x,race.player.y,storm[i].x,storm[i].y) < storm[i].size then
                         race.currentstate = "FAILED"
-                        -- love.event.quit()
                 end
         end
 
@@ -60,9 +59,7 @@ function race:update()
         end
 end
 
-function dist(x1,y1,x2,y2)
-        return math.sqrt((x1-x2)^2 + (y1-y2)^2)
-end
+function dist(x1,y1,x2,y2) return math.sqrt((x1-x2)^2 + (y1-y2)^2) end
 
 function race:draw()
         love.graphics.setFont(race.font)

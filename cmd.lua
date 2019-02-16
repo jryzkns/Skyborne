@@ -124,5 +124,5 @@ function cmd:draw()
         love.graphics.printf(lines.."_\n",0,0,cmd.xdim,"left")
         love.graphics.setColor(1,1,1,1)
 end
-        
+
 return cmd

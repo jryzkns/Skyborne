@@ -5,8 +5,8 @@ function love.load()
         game.xdim, game.ydim = 1200,600
         game.title = "Airborne Rhapsody - jryzkns 2019"
         game.states = {"STARTUP","BADEND","GOODEND","CONTROL","RACE","DODGE"}
-        -- game.currentstate = "STARTUP"
-        game.currentstate = "CONTROL"
+        game.currentstate = "STARTUP"
+        -- game.currentstate = "CONTROL"
         unrequited:windowsetup(game.xdim,game.ydim,game.title)
         love.mouse.setVisible(false)
 
@@ -23,6 +23,7 @@ end
 function love.update(dt)
         if unrequited.half_my_world["intro"].currentstate == "DONE" then game.currentstate = "CONTROL" end
         if game.currentstate == "CONTROL" then
+                if unrequited.half_my_world["cmd"].power > 100 then unrequited.half_my_world["cmd"].power = 100 end
                 unrequited.half_my_world["UI"]:getPower(unrequited.half_my_world["cmd"].power)
                 if unrequited.half_my_world["cmd"].failedcmd then
                         unrequited.half_my_world["S0YB3AN"].current_effect = "SEISMIC"

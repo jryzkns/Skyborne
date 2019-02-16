@@ -7,8 +7,8 @@ UI.xdim,UI.ydim = 0,0
 function UI:getGameState(game) if game.xdim and game.ydim then UI.xdim,UI.ydim = game.xdim,game.ydim end end
 
 
-UI.power = ""
-function UI:getPower(value) UI.power = tostring(value) end
+UI.power = 0
+function UI:getPower(value) UI.power = value end
 
 function UI:draw() 
         
