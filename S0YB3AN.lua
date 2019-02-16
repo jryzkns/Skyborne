@@ -26,7 +26,7 @@ function S0YB3AN:effects(frames) -- effects to screw the screen over
         love.graphics.setFont(S0YB3AN.font)
         if S0YB3AN.current_effect == "SEISMIC" then
                 if math.random() >= 0.85 then
-                        love.graphics.translate(math.random(S0YB3AN.xdim),math.random(S0YB3AN.ydim))
+                        love.graphics.translate(math.random(S0YB3AN.xdim),math.random(S0YB3AN.ydim/2))
                 end
                 love.graphics.translate(math.random(S0YB3AN.seismicfactor),math.random(S0YB3AN.seismicfactor))
                 if frames % 200 == 0 then
@@ -36,7 +36,8 @@ function S0YB3AN:effects(frames) -- effects to screw the screen over
                 if lines == nil then lines = init_anger_lines() end
                 lines.counter = lines.counter + 1
                 love.graphics.setColor(0.9,0.1,0.1,1)
-                love.graphics.translate(math.random(S0YB3AN.seismicfactor),math.random(S0YB3AN.seismicfactor))                for i=1,lines.size do 
+                for i=1,lines.size do 
+                        love.graphics.translate(math.random(S0YB3AN.seismicfactor),math.random(S0YB3AN.seismicfactor))                
                         lines[i].counter = lines[i].counter + 1
                         if lines[i].counter % 10 == 0 then
                                 lines[i].text = lines[i].text .. string.sub(anger,lines[i].text:len()+1,lines[i].text:len()+2)

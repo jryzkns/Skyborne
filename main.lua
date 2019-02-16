@@ -44,20 +44,12 @@ function love.mousepressed(x,y,button,istouch,presses) unrequited:mousepressed(x
 function love.mousereleased(x,y,button,istouch,presses) unrequited:mousereleased(x,y,button,istouch,presses)end
 function love.textinput(char) unrequited.half_my_world["cmd"]:textinput(char) end
 
-function love.keypressed(key,scancode,isrepeat)
-        -- play a sound
-        if key == "space" then unrequited:wait_for_me()
-        elseif key == "p" then unrequited:remember_me()
-        end
-
-        unrequited:keypressed(key,scancode,isrepeat)
-end
+function love.keypressed(key,scancode,isrepeat) unrequited:keypressed(key,scancode,isrepeat) end
 
 function love.keyreleased(key,scancode)
         if key == "escape" then unrequited:heartbreak() end
         unrequited:keyreleased(key,scancode)
 end
-
 
 function mouse()
         love.graphics.reset()
@@ -70,7 +62,7 @@ function love.draw()
                 unrequited.half_my_world["UI"]:draw()
                 unrequited.half_my_world["S0YB3AN"]:effects(unrequited.photographs)
                 unrequited.half_my_world["cmd"]:draw()
-                unrequited.half_my_world["S0YB3AN"]:draw()
+                -- unrequited.half_my_world["S0YB3AN"]:draw()
         end
 
         mouse()
