@@ -2,13 +2,14 @@ local initmsg = "WELCOME TO AIRCRAFT CONTROL\n"
 
 local cmd = {}
 
-cmd.prompt = ">  " -- this will dynamically change with the narrative
+cmd.prompt = "Chase@HOPE-SS> " -- this will dynamically change with the narrative
 
 cmd.command = ""
 cmd.history = {}
 cmd.commands_issued = 0
 cmd.command_issued = false
 cmd.response = ""
+cmd.complete = false
 
 function cmd:keypressed(key,scancode,isrepeat)
         if key == "backspace" then cmd.command = cmd.command:sub(1,cmd.command:len()-1) end
@@ -19,12 +20,15 @@ function cmd:keypressed(key,scancode,isrepeat)
                 cmd.command = string.upper(cmd.command)
                 -- deal with command table here
                 if cmd.commandtable[cmd.command] then 
-                        cmd.commandtable[cmd.command]() 
+                        cmd.commandtable[cmd.command]()
+                        cmd.power = cmd.power - 5
                 else
                         -- shock factor?
                 end
                 cmd.command = ""
         end
+
+        -- maybe implement ctrl + c?
 end
 
 function cmd:textinput(char) cmd.command = cmd.command .. char end
@@ -32,14 +36,6 @@ function cmd:textinput(char) cmd.command = cmd.command .. char end
 cmd.xdim,cmd.ydim = 0,0
 function cmd:getGameState(game) if game.xdim and game.ydim then cmd.xdim, cmd.ydim = game.xdim, game.ydim end end
 
-function cmd:draw()
-        local lines = initmsg
-        for _,pastcommand in pairs(cmd.history) do lines = lines .. cmd.prompt .. pastcommand .. "\n" end
-        lines = lines .. cmd.prompt .. cmd.command
-        love.graphics.setColor(0,0.1,0,1)
-        love.graphics.printf(lines,0,0,cmd.xdim,"left")
-        love.graphics.setColor(1,1,1,1)
-end
 
 cmd.commandtable = {}
 
@@ -52,5 +48,18 @@ end
 function cmd.commandtable:EXIT()
         love.event.quit()
 end
+
+cmd.power = 100
+
+function cmd:draw()
+        local lines = initmsg
+        for _,pastcommand in pairs(cmd.history) do lines = lines .. cmd.prompt .. pastcommand .. "\n" end
+        lines = lines .. cmd.prompt .. cmd.command
+        love.graphics.setColor(0,0.1,0,1)
+        love.graphics.printf(lines,0,0,cmd.xdim,"left")
+        love.graphics.setColor(1,1,1,1)
+end
+
+
 
 return cmd
