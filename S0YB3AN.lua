@@ -3,8 +3,7 @@ local S0YB3AN = {}
 local lines = nil
 local anger = "LISTEN TO ME"
 
-S0YB3AN.font = love.graphics.setNewFont("AllerDisplay.ttf",80) 
--- could give soybean a characteristic font
+S0YB3AN.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",80) 
 
 -- function S0YB3AN:draw()
 --         -- love.graphics.circle("fill",400,400,100)

@@ -52,6 +52,14 @@ function cmd:getGameState(game) if game.xdim and game.ydim then cmd.xdim, cmd.yd
 
 
 cmd.commandtable = {}
+-- propel: move forward on navigation track at a faster than usual speed, will use more energy
+function cmd.commandtable:PROPEL()
+
+end
+-- prospect: seeks possible extractable meteors freefloating to gain and restore some energy, will spend energy but will only get returns probabilistically
+function cmd.commandtable:PROSPECT()
+
+end
 
 function cmd.commandtable:CLEAR()
         cmd.history = {}

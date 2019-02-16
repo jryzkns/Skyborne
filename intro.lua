@@ -14,7 +14,6 @@ intro.text = {
 -- BGM!!!!!
 -- intro.bgm
 
-
 intro.current_text = 1
 
 intro.statuses = {"RUNNING","DONE"}
@@ -37,11 +36,7 @@ end
 function intro:draw()
         love.graphics.setFont(intro.font)
         love.graphics.draw(intro.splash,(intro.xdim-intro.splash:getWidth())/2,(intro.ydim-intro.splash:getHeight())/3)
-        -- if intro.text[intro.current_text] then
-        --         love.graphics.print(intro.text[intro.current_text],0,0)
-        -- end
         love.graphics.printf( intro.text[intro.current_text], intro.xdim/2-200, intro.ydim*5/6, 400)
 end
-
 
 return intro
