@@ -11,6 +11,7 @@ unrequited.half_my_world = {}
 -- your_name has to be a string
 function unrequited:closer_to_me(your_name)
         unrequited.half_my_world[your_name] = require(your_name)
+        if unrequited.half_my_world[your_name].init then unrequited.half_my_world[your_name]:init() end
 end
 
 function unrequited:update()

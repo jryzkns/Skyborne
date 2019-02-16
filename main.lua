@@ -1,11 +1,22 @@
 local unrequited = require("unrequited")
 
+-- be kind
+-- flight
+-- dangers in space
+-- energy
+
+
+-- STEP ONE implement a commandline
+
 function love.load()
         game = {}
-        game.xdim, game.ydim = 800,700
-        game.title = ""
+        game.xdim, game.ydim =1200,600
+        game.title = "Untitled - jryzkns 2019"
         unrequited:windowsetup(game.xdim,game.ydim,game.title)
 
+        unrequited:closer_to_me("UI")
+        unrequited:closer_to_me("cmd")
+        unrequited.half_my_world["cmd"]:getGameState(game)
 end
 
 function love.update(dt)
@@ -35,6 +46,12 @@ function love.keyreleased(key,scancode)
         unrequited:keyreleased(key,scancode)
 end
 
+function love.textinput(char)
+        unrequited.half_my_world["cmd"]:textinput(char)
+end
+
 function love.draw()
         -- unrequited:draw()
+        unrequited.half_my_world["UI"]:draw()
+        unrequited.half_my_world["cmd"]:draw()
 end

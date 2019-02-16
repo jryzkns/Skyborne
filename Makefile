@@ -1,4 +1,4 @@
-project = Template
+project = bcgj-2019
 
 default:
 	love ../$(project)
