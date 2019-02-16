@@ -6,18 +6,16 @@ local anger = "LISTEN TO ME"
 S0YB3AN.font = love.graphics.setNewFont("AllerDisplay.ttf",80) 
 -- could give soybean a characteristic font
 
-function S0YB3AN:draw()
-        -- love.graphics.circle("fill",400,400,100)
-end
+-- function S0YB3AN:draw()
+--         -- love.graphics.circle("fill",400,400,100)
+-- end
 
 S0YB3AN.xdim,S0YB3AN.ydim = 0,0
 function S0YB3AN:getGameState(game) if game.xdim and game.ydim then S0YB3AN.xdim, S0YB3AN.ydim = game.xdim, game.ydim end end
 
 -- soybean says things character by character, dialogue will be by absolute dialogue
 
-function S0YB3AN:update(dt,frames)
-
-end
+function S0YB3AN:update(dt,frames) end
 
 S0YB3AN.effects = {"SEISMIC","ANGER","NONE"}
 S0YB3AN.current_effect = "NONE"
@@ -37,7 +35,7 @@ function S0YB3AN:effects(frames) -- effects to screw the screen over
                 lines.counter = lines.counter + 1
                 love.graphics.setColor(0.9,0.1,0.1,1)
                 for i=1,lines.size do 
-                        love.graphics.translate(math.random(S0YB3AN.seismicfactor),math.random(S0YB3AN.seismicfactor))                
+                        love.graphics.translate(math.random(S0YB3AN.seismicfactor),math.random(S0YB3AN.seismicfactor))
                         lines[i].counter = lines[i].counter + 1
                         if lines[i].counter % 10 == 0 then
                                 lines[i].text = lines[i].text .. string.sub(anger,lines[i].text:len()+1,lines[i].text:len()+2)

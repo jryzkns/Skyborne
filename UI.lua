@@ -7,11 +7,11 @@ UI.power = ""
 function UI:getPower(value) UI.power = tostring(value) end
 
 function UI:draw() 
+        
+        -- backdrop
         love.graphics.draw(UI.backdrop,0,0)
-
-        -- some sort of battery display
-        love.graphics.print(UI.power,500,500)
-
+        
+        -- battery
         love.graphics.setLineWidth(5)
         local powercolor = getPowerColor(UI.power)
         love.graphics.setColor(powercolor[1],powercolor[2],powercolor[3],1)-- color this according to power percentage
@@ -22,11 +22,6 @@ function UI:draw()
         love.graphics.setColor(1,1,1,1)
 end
 
-function getPowerColor(power)
-
-        return {(100-power)/100,power/100,0}
-end
-
--- IMPLEMENT PAUSE
+function getPowerColor(power) return {(100-power)/100,power/100,0} end
 
 return UI

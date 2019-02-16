@@ -5,19 +5,27 @@ function love.load()
         game.xdim, game.ydim = 1200,600
         game.title = "Airborne Rhapsody - jryzkns 2019"
         game.states = {"STARTUP","BADENDSEQ","GOODENDSEQ","CONTROL"}
-        game.currentstate = "CONTROL"
+        game.currentstate = "STARTUP"
         unrequited:windowsetup(game.xdim,game.ydim,game.title)
         love.mouse.setVisible(false)
 
+        unrequited:closer_to_me("intro")
+        unrequited.half_my_world["intro"]:getGameState(game)
+
         unrequited:closer_to_me("UI")
+
         unrequited:closer_to_me("cmd")
         unrequited.half_my_world["cmd"]:getGameState(game)
+        
         unrequited:closer_to_me("S0YB3AN")
         unrequited.half_my_world["S0YB3AN"]:getGameState(game)
 end
 
 function love.update(dt)
-        if not unrequited.waiting then
+        if unrequited.half_my_world["intro"].currentstate == "DONE" then
+                game.currentstate = "CONTROL"
+        end
+        if game.currentstate == "CONTROL" then
                 unrequited.half_my_world["UI"]:getPower(unrequited.half_my_world["cmd"].power)
                 if unrequited.half_my_world["cmd"].failedcmd then
                         unrequited.half_my_world["S0YB3AN"].current_effect = "SEISMIC"
@@ -28,12 +36,10 @@ function love.update(dt)
                 end
 
                 if unrequited.half_my_world["cmd"].power <= 0 then
-                        -- IMPLEMENT BADEND SEQUENCE
                         game.currentstate = "BADENDSEQ"
                         love.event.quit()
                 end
                 if unrequited.half_my_world["cmd"].complete then
-                        -- IMPLEMENT GOODEND SEQUENCE
                         game.currentstate = "GOODENDSEQ"
                 end
                 unrequited:update(dt)
@@ -42,7 +48,11 @@ end
 
 function love.mousepressed(x,y,button,istouch,presses) unrequited:mousepressed(x,y,button,istouch,presses) end
 function love.mousereleased(x,y,button,istouch,presses) unrequited:mousereleased(x,y,button,istouch,presses)end
-function love.textinput(char) unrequited.half_my_world["cmd"]:textinput(char) end
+function love.textinput(char) 
+        if game.currentstate == "CONTROL" then
+                unrequited.half_my_world["cmd"]:textinput(char) 
+        end
+end
 
 function love.keypressed(key,scancode,isrepeat) unrequited:keypressed(key,scancode,isrepeat) end
 
@@ -58,6 +68,11 @@ function mouse()
 end
 
 function love.draw()
+
+        if game.currentstate == "STARTUP" then
+                unrequited.half_my_world["intro"]:draw()
+        end
+
         if game.currentstate == "CONTROL" then
                 unrequited.half_my_world["UI"]:draw()
                 unrequited.half_my_world["S0YB3AN"]:effects(unrequited.photographs)

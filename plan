@@ -1,11 +1,12 @@
 backlog:
 
+- design and implement all plausible commands for cmd
 - finish framework
 - define a story
 - implement story
 - music
 - finetuning
-
+- refactoring code to create a game/object states library and call it "friendship"... so I can say i made this game with the power of love and friendship...
 
 
 themes:

@@ -3,6 +3,7 @@ local initmsg = "HOPE-SS aviation System. Jekco™\n"..
                 "            .\\___-/.\\-___/. \n"..
                 "                        ~`-'~      \n"..
                 "All Rights Reserved 2066.\n"..
+                "Type the `help` command to review flight instructions\n"..
                 "jryzkns 2019\n"..
                 "----------------------------\n\n"
 
@@ -32,7 +33,6 @@ function cmd:keypressed(key,scancode,isrepeat)
                 cmd.history[cmd.commands_issued] = cmd.command
 
                 cmd.command = string.upper(cmd.command)
-                -- deal with command table here
                 if cmd.commandtable[cmd.command] then 
                         cmd.commandtable[cmd.command]()
                         cmd.power = cmd.power - 3
@@ -43,8 +43,6 @@ function cmd:keypressed(key,scancode,isrepeat)
                 end
                 cmd.command = ""
         end
-
-        -- maybe implement ctrl + c?
 end
 
 function cmd:textinput(char) cmd.command = cmd.command .. char end
@@ -65,6 +63,10 @@ function cmd.commandtable:EXIT()
         love.event.quit()
 end
 
+function cmd.commandtable:HELP()
+
+end
+
 cmd.power = 100
 
 function cmd:draw()
@@ -73,10 +75,8 @@ function cmd:draw()
         lines = lines .. cmd.prompt .. cmd.command
         love.graphics.setColor(0,0.1,0,1)
         love.graphics.setFont(cmd.font)
-        love.graphics.printf(lines,0,0,cmd.xdim,"left")
+        love.graphics.printf(lines.."_",0,0,cmd.xdim,"left")
         love.graphics.setColor(1,1,1,1)
 end
-
-
 
 return cmd
