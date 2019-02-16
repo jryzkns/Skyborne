@@ -5,7 +5,8 @@ function love.load()
         game.xdim, game.ydim = 1200,600
         game.title = "Airborne Rhapsody - jryzkns 2019"
         game.states = {"STARTUP","BADENDSEQ","GOODENDSEQ","CONTROL"}
-        game.currentstate = "STARTUP"
+        -- game.currentstate = "STARTUP"
+        game.currentstate = "CONTROL"
         unrequited:windowsetup(game.xdim,game.ydim,game.title)
         love.mouse.setVisible(false)
 
