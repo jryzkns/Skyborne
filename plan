@@ -7,12 +7,10 @@ backlog:
 - finetuning
 - refactoring code to create a game/object states library and call it "friendship"... so I can say i made this game with the power of love and friendship...
 
-
 themes:
 -- be kind
 -- flight
 -- dangers in space
 -- energy
-
 
 Chase is a junior pilot that is controlling a galactic spaceship. When his ship passed by an abandoned space station and caught a lost soul from the station whom manifests herself in the control terminal. They get caught in a storm and she helps Chase escape.

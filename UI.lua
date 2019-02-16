@@ -3,6 +3,10 @@ local UI = {}
 UI.backdrop = love.graphics.newImage("background.png")
 UI.cursor = love.graphics.newImage("cursor.png")
 
+UI.xdim,UI.ydim = 0,0
+function UI:getGameState(game) if game.xdim and game.ydim then UI.xdim,UI.ydim = game.xdim,game.ydim end end
+
+
 UI.power = ""
 function UI:getPower(value) UI.power = tostring(value) end
 

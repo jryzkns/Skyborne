@@ -22,7 +22,9 @@ cmd.failedcmd = false
 cmd.idle = 0
 cmd.response = ""
 cmd.distance_covered = 0
-                
+cmd.modes = {"NONE","RACE","DODGE"}
+cmd.mode = "NONE"
+
 function cmd:textinput(char) cmd.command = cmd.command .. char end
 cmd.xdim,cmd.ydim = 0,0
 function cmd:getGameState(game) if game.xdim and game.ydim then cmd.xdim, cmd.ydim = game.xdim, game.ydim end end
@@ -39,7 +41,7 @@ function cmd:keypressed(key,scancode,isrepeat)
                 cmd.command = string.upper(cmd.command)
                 if cmd.commandtable[cmd.command] then 
                         cmd.commandtable[cmd.command]()
-                        cmd.power = cmd.power - 3
+                        cmd.power = cmd.power - math.random(3,5)
                         cmd.failedcmd = false
                         cmd.command_issued = true
                 else
@@ -48,7 +50,7 @@ function cmd:keypressed(key,scancode,isrepeat)
                         cmd.response = ""
                 end
                 cmd.command = ""
-                local delta = math.random() > 0.5 and 1 or 0
+                local delta = math.random() > 0.5 and 2 or 0
                 cmd.distance_covered = cmd.distance_covered + delta
         end
 end
@@ -63,7 +65,7 @@ function cmd.commandtable:PROPEL()
         -- a probability to trigger a minigame
 
         if math.random() <= 0.1 then
-                -- minigame!
+                cmd.mode = "RACE"
         end
 
         cmd.commandtable:CLEAR()
@@ -85,7 +87,7 @@ function cmd.commandtable:PROSPECT()
         math.random(os.time())
 
         if math.random() <= 0.1 then
-                -- minigame!
+                cmd.mode = "DODGE"
         end
 
         cmd.commandtable:CLEAR()

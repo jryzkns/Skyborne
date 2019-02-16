@@ -4,22 +4,19 @@ function love.load()
         game = {}
         game.xdim, game.ydim = 1200,600
         game.title = "Airborne Rhapsody - jryzkns 2019"
-        game.states = {"STARTUP","BADENDSEQ","GOODENDSEQ","CONTROL"}
-        -- game.currentstate = "STARTUP"
-        game.currentstate = "CONTROL"
+        game.states = {"STARTUP","BADENDSEQ","GOODENDSEQ","CONTROL","RACE","DODGE"}
+        game.currentstate = "STARTUP"
         unrequited:windowsetup(game.xdim,game.ydim,game.title)
         love.mouse.setVisible(false)
 
-        unrequited:closer_to_me("intro")
-        unrequited.half_my_world["intro"]:getGameState(game)
-
-        unrequited:closer_to_me("UI")
-
-        unrequited:closer_to_me("cmd")
-        unrequited.half_my_world["cmd"]:getGameState(game)
-        
-        unrequited:closer_to_me("S0YB3AN")
-        unrequited.half_my_world["S0YB3AN"]:getGameState(game)
+        unrequited:closer_to_me("intro");unrequited.half_my_world["intro"]:getGameState(game)
+        unrequited:closer_to_me("goodend");unrequited.half_my_world["goodend"]:getGameState(game)
+        unrequited:closer_to_me("badend");unrequited.half_my_world["badend"]:getGameState(game)
+        unrequited:closer_to_me("UI");unrequited.half_my_world["UI"]:getGameState(game)
+        unrequited:closer_to_me("cmd");unrequited.half_my_world["cmd"]:getGameState(game)
+        unrequited:closer_to_me("S0YB3AN");unrequited.half_my_world["S0YB3AN"]:getGameState(game)
+        unrequited:closer_to_me("race");unrequited.half_my_world["race"]:getGameState(game)
+        unrequited:closer_to_me("dodge");unrequited.half_my_world["dodge"]:getGameState(game)
 end
 
 function love.update(dt)
@@ -38,10 +35,12 @@ function love.update(dt)
 
                 if unrequited.half_my_world["cmd"].power <= 0 then
                         game.currentstate = "BADENDSEQ"
-                        love.event.quit()
                 end
-                if unrequited.half_my_world["cmd"].distance_covered > 30 then
+                if unrequited.half_my_world["cmd"].distance_covered > 50 then
                         game.currentstate = "GOODENDSEQ"
+                end
+                if unrequited.half_my_world["cmd"].mode == "RACE" or unrequited.half_my_world["cmd"].mode == "DODGE" then
+                        game.currentstate = unrequited.half_my_world["cmd"].mode
                 end
                 unrequited:update(dt)
         end
@@ -70,16 +69,23 @@ end
 
 function love.draw()
 
-        if game.currentstate == "STARTUP" then
+        if game.currentstate == "STARTUP" then 
                 unrequited.half_my_world["intro"]:draw()
-        end
-
-        if game.currentstate == "CONTROL" then
+        elseif game.currentstate == "RACE" then
+                unrequited.half_my_world["race"]:draw()
+        elseif game.currentstate == "DODGE" then
+                unrequited.half_my_world["dodge"]:draw()
+        elseif game.currentstate == "CONTROL" then
                 unrequited.half_my_world["UI"]:draw()
                 unrequited.half_my_world["S0YB3AN"]:effects(unrequited.photographs)
                 unrequited.half_my_world["cmd"]:draw()
                 -- unrequited.half_my_world["S0YB3AN"]:draw()
+        elseif game.currentstate == "GOODENDSEQ" then
+                unrequited.half_my_world["goodend"]:draw()
+        elseif game.currentstate == "BADENDSEQ" then
+                unrequited.half_my_world["badend"]:draw()
         end
+
 
         mouse()
 end
