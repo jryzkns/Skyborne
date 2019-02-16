@@ -32,7 +32,7 @@ function love.update(dt)
                         unrequited.half_my_world["S0YB3AN"].current_effect = "SEISMIC"
                 end
 
-                if unrequited.half_my_world["cmd"].idle > 300 and unrequited.half_my_world["S0YB3AN"].current_effect ~= "ANGER" then
+                if unrequited.half_my_world["cmd"].idle > 500 and unrequited.half_my_world["S0YB3AN"].current_effect ~= "ANGER" then
                         unrequited.half_my_world["S0YB3AN"].current_effect = "ANGER"
                 end
 
@@ -40,7 +40,7 @@ function love.update(dt)
                         game.currentstate = "BADENDSEQ"
                         love.event.quit()
                 end
-                if unrequited.half_my_world["cmd"].complete then
+                if unrequited.half_my_world["cmd"].distance_covered > 30 then
                         game.currentstate = "GOODENDSEQ"
                 end
                 unrequited:update(dt)

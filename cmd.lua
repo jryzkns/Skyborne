@@ -17,11 +17,11 @@ cmd.history = {}
 cmd.commands_issued = 0
 cmd.command_issued = false
 cmd.response = ""
-cmd.complete = false
 cmd.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",30)
 cmd.failedcmd = false
 cmd.idle = 0
 cmd.response = ""
+cmd.distance_covered = 0
                 
 function cmd:textinput(char) cmd.command = cmd.command .. char end
 cmd.xdim,cmd.ydim = 0,0
@@ -48,6 +48,8 @@ function cmd:keypressed(key,scancode,isrepeat)
                         cmd.response = ""
                 end
                 cmd.command = ""
+                local delta = math.random() > 0.5 and 1 or 0
+                cmd.distance_covered = cmd.distance_covered + delta
         end
 end
 
@@ -71,6 +73,10 @@ function cmd.commandtable:PROPEL()
                         "*ENGAGING THRUSTERS*\n"..
                         "***"..result.."***\n"
         cmd.power = cmd.power - 10
+
+        if result == "PROPEL SUCCESS" then
+                cmd.distance_covered = cmd.distance_covered + 5
+        end
 end
 -- prospect: seeks possible extractable meteors freefloating to gain and restore some energy, will spend energy but will only get returns probabilistically
 function cmd.commandtable:PROSPECT()
