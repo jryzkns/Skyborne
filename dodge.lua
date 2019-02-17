@@ -16,36 +16,23 @@ function dodge:game_init()
 end
 
 function dodge:update()
-        local dt = 1/60
-        if love.keyboard.isDown("right") and dodge.player.x <= dodge.xdim-100 then
-                dodge.player.x = dodge.player.x + 3
-        end
-        if love.keyboard.isDown("left") and dodge.player.x >= 100 then
-                dodge.player.x = dodge.player.x - 3
-        end
-        if love.keyboard.isDown("up") and dodge.player.y >= dodge.ydim/2 - 50 then
-                dodge.player.y = dodge.player.y - 3
-        end
-        if love.keyboard.isDown("down") and dodge.player.y <= dodge.ydim/2 + 50 then
-                dodge.player.y = dodge.player.y + 3
-        end
-
-        if dodge.player.x > dodge.xdim-150 then
-                dodge.currentstate = "DONE"
-        end
-
+        if love.keyboard.isDown("right") and dodge.player.x <= dodge.xdim-100 then dodge.player.x = dodge.player.x + 3 end
+        if love.keyboard.isDown("left") and dodge.player.x >= 100 then dodge.player.x = dodge.player.x - 3 end
+        if love.keyboard.isDown("up") and dodge.player.y >= dodge.ydim/2 - 50 then dodge.player.y = dodge.player.y - 3 end
+        if love.keyboard.isDown("down") and dodge.player.y <= dodge.ydim/2 + 50 then dodge.player.y = dodge.player.y + 3 end
+        
+        if dodge.player.x > dodge.xdim-150 then dodge.currentstate = "DONE" end
+        
         -- let the rain fall
+        local dt = 1/60
         for i,drop in ipairs(rain) do
                 local dy = drop[3]*dt
                 drop[2] = drop[2] - dy
                 drop[3] = drop[3] - 100*dt
-                if dist(dodge.player.x,dodge.player.y,drop[1],drop[2]) <= 5 then
-                        print("hit")
-                        dodge.currentstate = "FAILED"
-                end
-                if drop[2] > dodge.ydim then -- when the drop goes below the screen
+                if dist(dodge.player.x,dodge.player.y,drop[1],drop[2]) <= 5 then dodge.currentstate = "FAILED" end
+                if drop[2] > dodge.ydim then
                         drop[3] = 3*math.random()
-                        drop[2] = -math.random()*dodge.ydim -- regenerates a place for them above the screen
+                        drop[2] = -math.random()*dodge.ydim
                         drop[1] = math.random()*dodge.xdim
                 end
 

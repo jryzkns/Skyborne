@@ -5,10 +5,6 @@ local anger = "LISTEN TO ME"
 
 S0YB3AN.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",80) 
 
--- function S0YB3AN:draw()
---         -- love.graphics.circle("fill",400,400,100)
--- end
-
 S0YB3AN.xdim,S0YB3AN.ydim = 0,0
 function S0YB3AN:getGameState(game) if game.xdim and game.ydim then S0YB3AN.xdim, S0YB3AN.ydim = game.xdim, game.ydim end end
 

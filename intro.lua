@@ -1,5 +1,3 @@
--- can delete this module from memory after the cutscene is over
-
 local intro = {}
 intro.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",20)
 intro.text = {
@@ -10,9 +8,6 @@ intro.text = {
         "Chase decided to take a look at the command terminal to see what went awry.",
         "Press any key to continue..."
 }
-
--- BGM!!!!!
--- intro.bgm
 
 intro.current_text = 1
 

@@ -3,7 +3,7 @@ local goodend = {}
 goodend.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",20)
 
 goodend.text = {
-        "Luckily, the HOPE-SS found an entire bundle of fuel cells while scouring the space for decompostable material",
+        "Luckily, the HOPE-55 found an entire bundle of fuel cells while scouring the space for decompostable material",
         "The ship is now full of treasures and supplies. Chase cranked open the furnace, turned on autopilot, and leaned back on his chair to enjoy himself",
         "The long haul is over.",
         ""

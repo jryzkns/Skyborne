@@ -5,7 +5,8 @@ function love.load()
         game.xdim, game.ydim = 1200,600
         game.title = "Skyborne Rhapsody - jryzkns 2019"
         game.states = {"STARTUP","BADEND","GOODEND","CONTROL","RACE","DODGE","CREDITS"}
-        game.currentstate = "STARTUP"
+        -- game.currentstate = "STARTUP"
+        game.currentstate = "CONTROL"
         unrequited:windowsetup(game.xdim,game.ydim,game.title)
         love.mouse.setVisible(false)
 
@@ -50,11 +51,10 @@ function love.update(dt)
                         if not unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)].has_init then
                                 unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)]:game_init()
                         end
-                        game.currentstate = unrequited.half_my_world["cmd"].mode -- puts game into RACE or DODGE
+                        game.currentstate = unrequited.half_my_world["cmd"].mode
                 end
         end
         if game.currentstate == "RACE" or game.currentstate == "DODGE" then
-                print("shouldn't be in minigame")
                 if game.currentstate ~= "CONTROL" then
                         unrequited.half_my_world[string.lower(game.currentstate)]:update()
                 end
@@ -69,20 +69,9 @@ function love.update(dt)
         end
 end
 
-function love.mousepressed(x,y,button,istouch,presses) unrequited:mousepressed(x,y,button,istouch,presses) end
-function love.mousereleased(x,y,button,istouch,presses) unrequited:mousereleased(x,y,button,istouch,presses) end
-function love.textinput(char)
-        if game.currentstate == "CONTROL" then
-                unrequited.half_my_world["cmd"]:textinput(char) 
-        end
-end
+function love.textinput(char) if game.currentstate == "CONTROL" then unrequited.half_my_world["cmd"]:textinput(char) end end
 
 function love.keypressed(key,scancode,isrepeat) unrequited:keypressed(key,scancode,isrepeat) end
-
-function love.keyreleased(key,scancode)
-        if key == "escape" then unrequited:heartbreak() end
-        unrequited:keyreleased(key,scancode)
-end
 
 function mouse()
         love.graphics.reset()
@@ -91,14 +80,12 @@ function mouse()
 end
 
 function love.draw()
-
         if game.currentstate == "STARTUP" then 
                 unrequited.half_my_world["intro"]:draw()
         elseif game.currentstate == "CONTROL" then
                 unrequited.half_my_world["UI"]:draw()
                 unrequited.half_my_world["S0YB3AN"]:effects(unrequited.photographs)
                 unrequited.half_my_world["cmd"]:draw()
-                -- unrequited.half_my_world["S0YB3AN"]:draw()
         elseif game.currentstate == "RACE" then
                 unrequited.half_my_world["race"]:draw()
         elseif game.currentstate == "DODGE" then
@@ -110,6 +97,5 @@ function love.draw()
         elseif game.currentstate == "CREDITS" then
                 unrequited.half_my_world["credits"]:draw()
         end
-
         mouse()
 end

@@ -2,7 +2,7 @@ local badend = {}
 
 badend.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",20)
 badend.text = {
-        "Despite the long journey, the HOPE-SS went through a series of unfortunate events that made the ship too damaged and exhausted to go on.",
+        "Despite the long journey, the HOPE-55 went through a series of unfortunate events that made the ship too damaged and exhausted to go on.",
         "This ship was meant for bringing treasure back to civilation, but now it is no more than vessel for the treasure to remain lost.",
         "The long haul is over.",
         "Chase gazes out of the window, and the distant ancient nebula gazes back at him ever so peacefully..."

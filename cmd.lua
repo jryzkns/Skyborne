@@ -1,27 +1,26 @@
-local initmsg = "HOPE-SS aviation System. Jekco™\n"..
+local initmsg = "HOPE-55 aviation System. Jekco™\n"..
                 "                         \\   /      \n"..
                 "            .\\___-/.\\-___/. \n"..
                 "                        ~`-'~      \n"..
                 "All Rights Reserved 2066.\n"..
                 "Invoke the `help` command to review flight instructions\n"..
-                "jryzkns 2019\n"..
                 "----------------------------------------------\n\n"
 
 local cmd = {}
 
-cmd.prompt = "Chase@HOPE | SS> " -- this will dynamically change with the narrative
-
-cmd.power = 100
+cmd.prompt = "Chase@HOPE | 55> " -- this will dynamically change with the narrative
+cmd.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",30)
 cmd.command = ""
 cmd.history = {}
 cmd.commands_issued = 0
 cmd.command_issued = false
-cmd.response = ""
-cmd.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",30)
 cmd.failedcmd = false
-cmd.idle = 0
 cmd.response = ""
-cmd.distance_covered = 49
+
+cmd.power = 100
+cmd.idle = 0
+cmd.distance_covered = 0
+
 cmd.modes = {"NONE","RACE","DODGE"}
 cmd.mode = "NONE"
 
@@ -60,8 +59,8 @@ cmd.commandtable = {}
 function cmd.commandtable:EXIT() love.event.quit() end
 
 function cmd.commandtable:PROPEL()
-        if math.random() <= 0.1 then cmd.mode = "RACE" end
-
+        -- if math.random() <= 0.1 then cmd.mode = "RACE" end
+        cmd.mode = "RACE"
         cmd.commandtable:CLEAR()
         local result = (math.random(100) <= cmd.power) and "PROPEL SUCCESS" or "Program received signal SIGSEGV, Segmentation fault"
         cmd.response =  "*ENGAGING ENGINES*\n"..
@@ -84,9 +83,6 @@ function cmd.commandtable:PROSPECT()
         cmd.commandtable:CLEAR()
 
         local result = math.random() > 0.4 and "EXTRACTION SUCCESS" or "NO APPLICABLE ENERGY SOURCE FOUND, DISENGAGING COLLECTED MATERIAL"
-
-        -- if minerals are found, then start another "minigame" to catch the resources, use the ship's battery system too.
-        -- might also run into storm, have to get out without getting hit
         cmd.response =  "*ENGAGING LATERAL NET SYSTEM TO CATCH DECOMPOSTABLE DEBRIS*\n"..
                         "*ANALYZING DEBRIS COMPOSITION*\n"..
                         "***"..result.."***\n"
@@ -106,7 +102,7 @@ end
 
 function cmd.commandtable:HELP()
         cmd.commandtable:CLEAR()
-        cmd.response = "HOPE-SS COMMAND CENTER HELP MANUAL:\n"..
+        cmd.response = "HOPE-55 COMMAND CENTER HELP MANUAL:\n"..
                         "----------------------------------------------\n"..
                         "`CLEAR` to clear terminal window view\n"..
                         "`PROSPECT` to seek around ship for potential resources to gather more energy.\n"..
