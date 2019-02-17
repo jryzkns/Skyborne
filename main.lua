@@ -20,44 +20,49 @@ function love.load()
 end
 
 function love.update(dt)
+        -- if the current game state is in one of the two endings:
         if game.currentstate == "GOODEND" or game.currentstate == "BADEND" then
-                if unrequited.half_my_world[string.lower(game.currentstate)].currentstate == "DONE" then
-                        game.currentstate = "CREDITS"
-                        unrequited:closer_to_me("credits")
-                end
-        end
-        if unrequited.half_my_world["intro"].currentstate == "DONE" then 
+                -- if the ending sequence is done, roll the credits
+                if unrequited.half_my_world[string.lower(game.currentstate)].currentstate == "DONE" then unrequited:closer_to_me("credits");game.currentstate = "CREDITS" end 
+        -- if the intro sequence is done, then go to control stage
+        elseif unrequited.half_my_world["intro"].currentstate == "DONE" then 
                 unrequited.half_my_world["intro"].currentstate = "OVER"
                 game.currentstate = "CONTROL" 
-        end
-        if game.currentstate == "CONTROL" then
+        -- if the current game state is in control mode
+        elseif game.currentstate == "CONTROL" then
+
                 unrequited.half_my_world["S0YB3AN"]:update(dt,unrequited.photographs)
+
+                -- fix power and update power to UI
                 if unrequited.half_my_world["cmd"].power > 100 then unrequited.half_my_world["cmd"].power = 100 end
                 unrequited.half_my_world["UI"]:getPower(unrequited.half_my_world["cmd"].power)
-                if unrequited.half_my_world["cmd"].failedcmd then
-                        unrequited.half_my_world["S0YB3AN"].current_effect = "SEISMIC"
-                end
-                if unrequited.half_my_world["cmd"].power <= 0 then 
+                
+                -- if you mess up a command, subin gets mad at you
+                if unrequited.half_my_world["cmd"].failedcmd then unrequited.half_my_world["S0YB3AN"].current_effect = "SEISMIC" end
+
+                -- if you run out of power, invoke bad ending. if you travelled your amount, invoke good ending
+                if not (unrequited.half_my_world["cmd"].power > 0) then 
                         unrequited.half_my_world["badend"].current_text = 1
                         unrequited.half_my_world["badend"].currentstate = "RUNNING"
                         game.currentstate = "BADEND"
                         unrequited.half_my_world["badend"].bgm:play() 
-                end
-                if unrequited.half_my_world["cmd"].distance_covered > 50 then 
+                elseif unrequited.half_my_world["cmd"].distance_covered > 50 then 
                         unrequited.half_my_world["goodend"].current_text = 1
                         unrequited.half_my_world["goodend"].currentstate = "RUNNING"
                         game.currentstate = "GOODEND" 
                         unrequited.half_my_world["goodend"].bgm:play()
                 end
+
+                -- if the control window swaps over to a minigame, start the minigame
                 if unrequited.half_my_world["cmd"].mode == "RACE" or unrequited.half_my_world["cmd"].mode == "DODGE" then
                         if not unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)].has_init then
                                 unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)]:game_init()
                         end
                         game.currentstate = unrequited.half_my_world["cmd"].mode
                         unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)].bgm:play()
+                        unrequited.half_my_world["cmd"].mode = "NONE"
                 end
-        end
-        if game.currentstate == "RACE" or game.currentstate == "DODGE" then
+        elseif game.currentstate == "RACE" or game.currentstate == "DODGE" then
                 if game.currentstate ~= "CONTROL" then
                         unrequited.half_my_world[string.lower(game.currentstate)]:update()
                 end
