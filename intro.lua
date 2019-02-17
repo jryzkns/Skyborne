@@ -1,7 +1,7 @@
 local intro = {}
 intro.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",20)
 intro.text = {
-        "July 8th, 3032. Aboard the HOPE-SS, Junior Pilot Chase sits in his chamber controlling the ship on his way home from his year long mission.",
+        "July 8th, 3032. Aboard the HOPE-55, Junior Pilot Chase sits in his chamber controlling the ship on his way home from his year long mission.",
         "The ship is full of otherworldly treasures and an ancient relic that is rumoured to be able to revert human regrets. There aren't much humans left but that's beside the point.",
         "The long haul is almost over. The ship is now running on its last energy cell, but Chase was certain that he could make it back home with all that's left.",
         "However, ever since the ship passed by that abandoned space station two days ago, things have not been feeling right on this ship.",

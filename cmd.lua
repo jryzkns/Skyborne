@@ -59,8 +59,7 @@ cmd.commandtable = {}
 function cmd.commandtable:EXIT() love.event.quit() end
 
 function cmd.commandtable:PROPEL()
-        -- if math.random() <= 0.1 then cmd.mode = "RACE" end
-        cmd.mode = "RACE"
+        if math.random() <= 0.1 then cmd.mode = "RACE" end
         cmd.commandtable:CLEAR()
         local result = (math.random(100) <= cmd.power) and "PROPEL SUCCESS" or "Program received signal SIGSEGV, Segmentation fault"
         cmd.response =  "*ENGAGING ENGINES*\n"..
@@ -69,9 +68,7 @@ function cmd.commandtable:PROPEL()
                         "***"..result.."***\n"
         cmd.power = cmd.power - 10
 
-        if result == "PROPEL SUCCESS" then
-                cmd.distance_covered = cmd.distance_covered + 5
-        end
+        if result == "PROPEL SUCCESS" then cmd.distance_covered = cmd.distance_covered + 5 end
 end
 
 function cmd.commandtable:PROSPECT()
@@ -115,7 +112,7 @@ function cmd:draw()
         local lines = initmsg
         for _,pastcommand in pairs(cmd.history) do lines = lines .. cmd.prompt .. pastcommand .. "\n" end
                 lines = lines .. cmd.response .. cmd.prompt .. cmd.command
-        love.graphics.setColor(0,0.1,0,1)
+        love.graphics.setColor(0,1,1,1)
         love.graphics.setFont(cmd.font)
         love.graphics.printf(lines.."_\n",0,0,cmd.xdim,"left")
         love.graphics.setColor(1,1,1,1)

@@ -15,6 +15,7 @@ badend.currentstate = "IDLE"
 
 function badend:init()
         badend.splash = love.graphics.newImage("badend.png")
+        badend.bgm = love.audio.newSource("badend.mp3","static")
 end
 
 badend.xdim,badend.ydim = 0,0

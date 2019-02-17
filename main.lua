@@ -5,8 +5,7 @@ function love.load()
         game.xdim, game.ydim = 1200,600
         game.title = "Skyborne Rhapsody - jryzkns 2019"
         game.states = {"STARTUP","BADEND","GOODEND","CONTROL","RACE","DODGE","CREDITS"}
-        -- game.currentstate = "STARTUP"
-        game.currentstate = "CONTROL"
+        game.currentstate = "STARTUP"
         unrequited:windowsetup(game.xdim,game.ydim,game.title)
         love.mouse.setVisible(false)
 
@@ -40,7 +39,8 @@ function love.update(dt)
                 if unrequited.half_my_world["cmd"].power <= 0 then 
                         unrequited.half_my_world["badend"].current_text = 1
                         unrequited.half_my_world["badend"].currentstate = "RUNNING"
-                        game.currentstate = "BADEND" 
+                        game.currentstate = "BADEND"
+                        unrequited.half_my_world["badend"].bgm:play() 
                 end
                 if unrequited.half_my_world["cmd"].distance_covered > 50 then 
                         unrequited.half_my_world["goodend"].current_text = 1
@@ -65,6 +65,7 @@ function love.update(dt)
                 elseif unrequited.half_my_world[string.lower(game.currentstate)].currentstate == "FAILED" then
                         unrequited.half_my_world["badend"].currentstate = "RUNNING"
                         game.currentstate = "BADEND"
+                        unrequited.half_my_world["badend"].bgm:play()
                 end
         end
 end
