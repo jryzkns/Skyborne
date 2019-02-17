@@ -21,7 +21,7 @@ cmd.power = 100
 cmd.idle = 0
 cmd.distance_covered = 0
 
-cmd.modes = {"NONE","RACE","DODGE"}
+cmd.modes = {"NONE","RACE","DODGE","END"}
 cmd.mode = "NONE"
 
 function cmd:textinput(char) cmd.command = cmd.command .. char end
@@ -57,12 +57,13 @@ end
 cmd.commandtable = {}
 
 function cmd.commandtable:INSPECT()
-        cmd.response =  "Sysem power level: " .. cmd.power .. "%\n" ..
+        cmd.response =  "SYSTEM REPORT:\n"..
+                        "Energy level: " .. cmd.power .. "%\n" ..
                         "Remaining Distance to cover: " .. 50 - cmd.distance_covered .. "ly\n"
 
 end
 
-function cmd.commandtable:EXIT() love.event.quit() end
+function cmd.commandtable:EXIT() cmd.mode = "END" end
 
 function cmd.commandtable:PROPEL()
         if math.random() <= 0.1 then cmd.mode = "RACE" end
@@ -81,7 +82,7 @@ end
 function cmd.commandtable:PROSPECT()
 
         math.random(os.time())
-        -- cmd.mode = "DODGE"
+        cmd.mode = "DODGE"
         if math.random() <= 0.1 then cmd.mode = "DODGE" end
         cmd.commandtable:CLEAR()
         local result = math.random() > 0.4 and "EXTRACTION SUCCESS" or "NO APPLICABLE ENERGY SOURCE FOUND, DISENGAGING COLLECTED MATERIAL"
@@ -101,7 +102,7 @@ function cmd.commandtable:CLEAR()
         cmd.response = ""
 end
 
-
+cmd.seen_help = false
 function cmd.commandtable:HELP()
         cmd.commandtable:CLEAR()
         cmd.response = "HOPE-55 COMMAND CENTER HELP MANUAL:\n"..
@@ -112,6 +113,7 @@ function cmd.commandtable:HELP()
                         "`INSPECT` to learn about travel statistics.\n"..
                         "`EXIT` to exit the terminal.\n"..
                         "----------------------------------------------\n"
+        if not cmd.seen_help then cmd.seen_help = true end
 end
 
 function cmd:draw()

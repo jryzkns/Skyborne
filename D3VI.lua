@@ -12,6 +12,7 @@ D3VI.platform = love.graphics.newImage("platform.png")
 D3VI.x,D3VI.y = 900,230
 D3VI.internal_offset = 0
 D3VI.show,D3VI.message = false, ""
+D3VI.seen_help = false
 
 function D3VI:draw()
         if D3VI.show then
@@ -34,8 +35,10 @@ function D3VI:update(dt,frames)
         if not D3VI.show then
                 if D3VI.listen == "LS" then start_msg("nothing to see here", frames)
                 elseif D3VI.listen == "GREP" then start_msg("What are you trying to find?", frames)
-                elseif D3VI.listen == "PROSPECT" and (math.random() > 0.5) then start_msg("I guess you never miss huh", frames)
-                elseif D3VI.listen == "PROPEL" and (math.random() > 0.4) then start_msg("Woosh", frames)
+                elseif D3VI.listen == "HELP" and D3VI.seen_help then start_msg("Reading the manpage again? Pathetic", frames)
+                elseif D3VI.listen == "SUDO" then start_msg("you think you own me?", frames);D3VI.current_effect = "SEISMIC"
+                elseif D3VI.listen == "PROSPECT" then start_msg("I guess you never miss huh", frames)
+                elseif D3VI.listen == "PROPEL" then start_msg("Woosh", frames)
                 elseif D3VI.current_effect == "SEISMIC" then start_msg("You idiot!",frames)
                 elseif D3VI.current_effect == "ANGER" then start_msg("WHY WONT YOU LISTEN TO ME",frames)
                 end

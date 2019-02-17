@@ -28,6 +28,7 @@ function dodge:update()
         local dt = 1/60
         for i,drop in ipairs(rain) do
                 local dy = drop[3]*dt
+                -- drop[1] = drop[1] + ((math.random() <= 0.2) and 1 or 0)
                 drop[2] = drop[2] - dy
                 drop[3] = drop[3] - 100*dt
                 if dist(dodge.player.x,dodge.player.y,drop[1],drop[2]) <= 5 then dodge.currentstate = "FAILED";dodge.bgm:stop() end

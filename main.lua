@@ -19,12 +19,17 @@ function love.load()
         unrequited:closer_to_me("dodge");unrequited.half_my_world["dodge"]:getGameState(game)
 end
 
+function roll_credits()
+        unrequited:closer_to_me("credits")
+        game.currentstate = "CREDITS" 
+end
+
 function love.update(dt)
         unrequited.photographs = unrequited.photographs + 1
         -- if the current game state is in one of the two endings:
         if game.currentstate == "GOODEND" or game.currentstate == "BADEND" then
                 -- if the ending sequence is done, roll the credits
-                if unrequited.half_my_world[string.lower(game.currentstate)].currentstate == "DONE" then unrequited:closer_to_me("credits");game.currentstate = "CREDITS" end 
+                if unrequited.half_my_world[string.lower(game.currentstate)].currentstate == "DONE" then roll_credits() end 
         -- if the intro sequence is done, then go to control stage
         elseif unrequited.half_my_world["intro"].currentstate == "DONE" then 
                 unrequited.half_my_world["intro"].currentstate = "OVER"
@@ -32,9 +37,12 @@ function love.update(dt)
         -- if the current game state is in control mode
         elseif game.currentstate == "CONTROL" then
 
+                if unrequited.half_my_world["cmd"].mode == "END" then roll_credits() end 
+                
+                unrequited.half_my_world["D3VI"].seen_help = unrequited.half_my_world["cmd"].seen_help
+
                 unrequited.half_my_world["cmd"]:update(dt,unrequited.photographs)
                 unrequited.half_my_world["D3VI"]:update(dt,unrequited.photographs)
-
                 -- fix power and update power to UI
                 if unrequited.half_my_world["cmd"].power > 100 then unrequited.half_my_world["cmd"].power = 100 end
                 unrequited.half_my_world["UI"]:getPower(unrequited.half_my_world["cmd"].power)
@@ -59,6 +67,7 @@ function love.update(dt)
                 if unrequited.half_my_world["cmd"].mode == "RACE" or unrequited.half_my_world["cmd"].mode == "DODGE" then
                         if not unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)].has_init then
                                 unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)]:game_init()
+                                unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)].has_init = false
                         end
                         game.currentstate = unrequited.half_my_world["cmd"].mode
                         unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)].bgm:play()

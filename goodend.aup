@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no" ?>
 <!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
-<project xmlns="http://audacity.sourceforge.net/xml/" projname="goodend_data" version="1.3.0" audacityversion="2.2.1" sel0="25.3837641723" sel1="25.3837641723" vpos="0" h="0.0000000000" zoom="21.5332031250" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="goodend_data" version="1.3.0" audacityversion="2.2.1" sel0="25.9918367347" sel1="25.9918367347" vpos="0" h="15.3658049887" zoom="43.0664062500" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
 	<tags/>
 	<wavetrack name="Audio Track" channel="0" linked="1" mute="0" solo="1" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0" colorindex="0">
 		<waveclip offset="0.00000000" colorindex="0">
@@ -21,10 +21,31 @@
 					<simpleblockfile filename="e0000c4f.au" len="211968" min="-0.848403" max="0.851636" rms="0.283074"/>
 				</waveblock>
 				<waveblock start="967424">
-					<simpleblockfile filename="e0000bad.au" len="132224" min="-0.724118" max="0.731771" rms="0.283616"/>
+					<simpleblockfile filename="e0000f10.au" len="152000" min="-0.724118" max="0.731771" rms="0.264523"/>
 				</waveblock>
-				<waveblock start="1099648">
-					<simpleblockfile filename="e00009a4.au" len="19776" min="0.0" max="0.0" rms="0.0"/>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="25.38376417" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="9408">
+				<waveblock start="0">
+					<simpleblockfile filename="e00008fa.au" len="9408" min="0.0" max="0.0" rms="0.0"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="25.59709751" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="8000">
+				<waveblock start="0">
+					<simpleblockfile filename="e000094a.au" len="8000" min="0.0" max="0.0" rms="0.0"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="25.77850340" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="9408">
+				<waveblock start="0">
+					<simpleblockfile filename="e00008fa.au" len="9408" min="0.0" max="0.0" rms="0.0"/>
 				</waveblock>
 			</sequence>
 			<envelope numpoints="0"/>
@@ -49,10 +70,31 @@
 					<simpleblockfile filename="e0000ede.au" len="211968" min="-0.835765" max="0.839451" rms="0.278902"/>
 				</waveblock>
 				<waveblock start="967424">
-					<simpleblockfile filename="e0000266.au" len="132224" min="-0.713123" max="0.721456" rms="0.279427"/>
+					<simpleblockfile filename="e00007fa.au" len="152000" min="-0.713123" max="0.721456" rms="0.260617"/>
 				</waveblock>
-				<waveblock start="1099648">
-					<simpleblockfile filename="e00002e2.au" len="19776" min="0.0" max="0.0" rms="0.0"/>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="25.38376417" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="9408">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000124.au" len="9408" min="0.0" max="0.0" rms="0.0"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="25.59709751" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="8000">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000711.au" len="8000" min="0.0" max="0.0" rms="0.0"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="25.77850340" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="9408">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000124.au" len="9408" min="0.0" max="0.0" rms="0.0"/>
 				</waveblock>
 			</sequence>
 			<envelope numpoints="0"/>
