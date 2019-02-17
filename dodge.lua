@@ -1,5 +1,6 @@
 local dodge = {}
-
+dodge.bgm = love.audio.newSource("dodge.mp3","static")
+dodge.bgm:setLooping(true)
 dodge.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",30)
 dodge.xdim,dodge.ydim = 0,0
 function dodge:getGameState(game) if game.xdim and game.ydim then dodge.xdim,dodge.ydim = game.xdim,game.ydim end end
@@ -21,7 +22,7 @@ function dodge:update()
         if love.keyboard.isDown("up") and dodge.player.y >= dodge.ydim/2 - 50 then dodge.player.y = dodge.player.y - 3 end
         if love.keyboard.isDown("down") and dodge.player.y <= dodge.ydim/2 + 50 then dodge.player.y = dodge.player.y + 3 end
         
-        if dodge.player.x > dodge.xdim-150 then dodge.currentstate = "DONE" end
+        if dodge.player.x > dodge.xdim-150 then dodge.currentstate = "DONE";dodge.bgm:stop();rain={} end
         
         -- let the rain fall
         local dt = 1/60
@@ -29,7 +30,7 @@ function dodge:update()
                 local dy = drop[3]*dt
                 drop[2] = drop[2] - dy
                 drop[3] = drop[3] - 100*dt
-                if dist(dodge.player.x,dodge.player.y,drop[1],drop[2]) <= 5 then dodge.currentstate = "FAILED" end
+                if dist(dodge.player.x,dodge.player.y,drop[1],drop[2]) <= 5 then dodge.currentstate = "FAILED";dodge.bgm:stop() end
                 if drop[2] > dodge.ydim then
                         drop[3] = 3*math.random()
                         drop[2] = -math.random()*dodge.ydim

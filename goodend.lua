@@ -1,5 +1,8 @@
 local goodend = {}
 
+goodend.bgm = love.audio.newSource("goodend.mp3","static")
+goodend.bgm:setLooping(true)
+
 goodend.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",20)
 
 goodend.text = {

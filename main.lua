@@ -31,6 +31,7 @@ function love.update(dt)
                 game.currentstate = "CONTROL" 
         end
         if game.currentstate == "CONTROL" then
+                unrequited.half_my_world["S0YB3AN"]:update(dt,unrequited.photographs)
                 if unrequited.half_my_world["cmd"].power > 100 then unrequited.half_my_world["cmd"].power = 100 end
                 unrequited.half_my_world["UI"]:getPower(unrequited.half_my_world["cmd"].power)
                 if unrequited.half_my_world["cmd"].failedcmd then
@@ -46,12 +47,14 @@ function love.update(dt)
                         unrequited.half_my_world["goodend"].current_text = 1
                         unrequited.half_my_world["goodend"].currentstate = "RUNNING"
                         game.currentstate = "GOODEND" 
+                        unrequited.half_my_world["goodend"].bgm:play()
                 end
                 if unrequited.half_my_world["cmd"].mode == "RACE" or unrequited.half_my_world["cmd"].mode == "DODGE" then
                         if not unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)].has_init then
                                 unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)]:game_init()
                         end
                         game.currentstate = unrequited.half_my_world["cmd"].mode
+                        unrequited.half_my_world[string.lower(unrequited.half_my_world["cmd"].mode)].bgm:play()
                 end
         end
         if game.currentstate == "RACE" or game.currentstate == "DODGE" then
@@ -61,7 +64,8 @@ function love.update(dt)
                 if unrequited.half_my_world[string.lower(game.currentstate)].currentstate == "DONE" then
                         game.currentstate = "CONTROL"
                         unrequited.half_my_world["cmd"].currentstate = "NONE"
-                        unrequited.half_my_world["cmd"].power,unrequited.half_my_world["cmd"].distance_covered = unrequited.half_my_world["cmd"].power+10, unrequited.half_my_world["cmd"].distance_covered+15
+                        unrequited.half_my_world["cmd"].power = unrequited.half_my_world["cmd"].power + 10
+                        unrequited.half_my_world["cmd"].distance_covered = unrequited.half_my_world["cmd"].distance_covered + 15
                 elseif unrequited.half_my_world[string.lower(game.currentstate)].currentstate == "FAILED" then
                         unrequited.half_my_world["badend"].currentstate = "RUNNING"
                         game.currentstate = "BADEND"

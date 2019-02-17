@@ -8,10 +8,9 @@ S0YB3AN.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",80)
 S0YB3AN.xdim,S0YB3AN.ydim = 0,0
 function S0YB3AN:getGameState(game) if game.xdim and game.ydim then S0YB3AN.xdim, S0YB3AN.ydim = game.xdim, game.ydim end end
 
--- soybean says things character by character, dialogue will be by absolute dialogue
+function S0YB3AN:update(dt,frames)
 
-function S0YB3AN:update(dt,frames) end
-
+end
 S0YB3AN.effects = {"SEISMIC","ANGER","NONE"}
 S0YB3AN.current_effect = "NONE"
 S0YB3AN.seismicfactor = 5
@@ -58,6 +57,14 @@ function init_anger_lines()
                 lines[i].text = ""
         end
         return lines
+end
+
+S0YB3AN.listen = ""
+function S0YB3AN:textinput(char)
+        if char == "\n" then
+                S0YB3AN.listen = ""
+        end
+        S0YB3AN.listen = S0YB3AN.listen .. char
 end
 
 return S0YB3AN

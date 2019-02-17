@@ -8,7 +8,7 @@ local initmsg = "HOPE-55 aviation System. Jekco™\n"..
 
 local cmd = {}
 
-cmd.prompt = "Chase@HOPE | 55> " -- this will dynamically change with the narrative
+cmd.prompt = "Chase@HOPE | 55> "
 cmd.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",30)
 cmd.command = ""
 cmd.history = {}
@@ -28,7 +28,7 @@ function cmd:textinput(char) cmd.command = cmd.command .. char end
 cmd.xdim,cmd.ydim = 0,0
 function cmd:getGameState(game) if game.xdim and game.ydim then cmd.xdim, cmd.ydim = game.xdim, game.ydim end end
 
-function cmd:update(dt,frames) cmd.idle = cmd.idle + 1 end
+function cmd:update(dt,frames) cmd.idle = cmd.idle + 1; end
 
 function cmd:keypressed(key,scancode,isrepeat)
         cmd.idle = 0
@@ -56,10 +56,17 @@ end
 
 cmd.commandtable = {}
 
+function cmd.commandtable:INSPECT()
+        cmd.response =  "Sysem power level: " .. cmd.power .. "%\n" ..
+                        "Remaining Distance to cover: " .. 50 - cmd.distance_covered .. "ly\n"
+
+end
+
 function cmd.commandtable:EXIT() love.event.quit() end
 
 function cmd.commandtable:PROPEL()
         if math.random() <= 0.1 then cmd.mode = "RACE" end
+        -- cmd.mode = "RACE"
         cmd.commandtable:CLEAR()
         local result = (math.random(100) <= cmd.power) and "PROPEL SUCCESS" or "Program received signal SIGSEGV, Segmentation fault"
         cmd.response =  "*ENGAGING ENGINES*\n"..
@@ -74,11 +81,9 @@ end
 function cmd.commandtable:PROSPECT()
 
         math.random(os.time())
-
+        -- cmd.mode = "DODGE"
         if math.random() <= 0.1 then cmd.mode = "DODGE" end
-
         cmd.commandtable:CLEAR()
-
         local result = math.random() > 0.4 and "EXTRACTION SUCCESS" or "NO APPLICABLE ENERGY SOURCE FOUND, DISENGAGING COLLECTED MATERIAL"
         cmd.response =  "*ENGAGING LATERAL NET SYSTEM TO CATCH DECOMPOSTABLE DEBRIS*\n"..
                         "*ANALYZING DEBRIS COMPOSITION*\n"..
@@ -104,6 +109,7 @@ function cmd.commandtable:HELP()
                         "`CLEAR` to clear terminal window view\n"..
                         "`PROSPECT` to seek around ship for potential resources to gather more energy.\n"..
                         "`PROPEL` to engage engines temporarily, propelling ship forward for a speed boost.\n"..
+                        "`INSPECT` to learn about travel statistics.\n"..
                         "`EXIT` to exit the terminal.\n"..
                         "----------------------------------------------\n"
 end
@@ -111,7 +117,7 @@ end
 function cmd:draw()
         local lines = initmsg
         for _,pastcommand in pairs(cmd.history) do lines = lines .. cmd.prompt .. pastcommand .. "\n" end
-                lines = lines .. cmd.response .. cmd.prompt .. cmd.command
+        lines = lines .. cmd.response .. cmd.prompt .. cmd.command
         love.graphics.setColor(0,1,1,1)
         love.graphics.setFont(cmd.font)
         love.graphics.printf(lines.."_\n",0,0,cmd.xdim,"left")

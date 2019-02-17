@@ -9,6 +9,9 @@ intro.text = {
         "Press any key to continue..."
 }
 
+intro.bgm = love.audio.newSource("intro.mp3","static")
+intro.bgm:play()
+
 intro.current_text = 1
 
 intro.statuses = {"RUNNING","DONE","OVER"}

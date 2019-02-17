@@ -1,5 +1,7 @@
 local race = {}
 
+race.bgm = love.audio.newSource("race.mp3","static")
+race.bgm:setLooping(true)
 race.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",30)
 race.xdim,race.ydim = 0,0
 function race:getGameState(game) if game.xdim and game.ydim then race.xdim,race.ydim = game.xdim, game.ydim end end
@@ -43,19 +45,21 @@ function race:update()
         end
 
         for i=1,#storm do
-                storm[i].size = storm[i].size * 1.08
+                storm[i].size = storm[i].size * 1.03
                 if storm[i].size >= 120 then
                         storm = make_meteors()
                         break
                 end
                 if dist(race.player.x,race.player.y,storm[i].x,storm[i].y) < storm[i].size then
                         race.currentstate = "FAILED"
+                        race.bgm:stop()
                 end
         end
 
         race.internal_counter = race.internal_counter + 1
-        if race.internal_counter >= 200 then
+        if race.internal_counter >= 400 then
                 race.currentstate = "DONE"
+                race.bgm:stop()
         end
 end
 
