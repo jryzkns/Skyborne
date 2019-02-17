@@ -14,12 +14,13 @@ function love.load()
         unrequited:closer_to_me("badend");unrequited.half_my_world["badend"]:getGameState(game)
         unrequited:closer_to_me("UI");unrequited.half_my_world["UI"]:getGameState(game)
         unrequited:closer_to_me("cmd");unrequited.half_my_world["cmd"]:getGameState(game)
-        unrequited:closer_to_me("S0YB3AN");unrequited.half_my_world["S0YB3AN"]:getGameState(game)
+        unrequited:closer_to_me("D3VI");unrequited.half_my_world["D3VI"]:getGameState(game)
         unrequited:closer_to_me("race");unrequited.half_my_world["race"]:getGameState(game)
         unrequited:closer_to_me("dodge");unrequited.half_my_world["dodge"]:getGameState(game)
 end
 
 function love.update(dt)
+        unrequited.photographs = unrequited.photographs + 1
         -- if the current game state is in one of the two endings:
         if game.currentstate == "GOODEND" or game.currentstate == "BADEND" then
                 -- if the ending sequence is done, roll the credits
@@ -31,15 +32,16 @@ function love.update(dt)
         -- if the current game state is in control mode
         elseif game.currentstate == "CONTROL" then
 
-                unrequited.half_my_world["S0YB3AN"]:update(dt,unrequited.photographs)
+                unrequited.half_my_world["cmd"]:update(dt,unrequited.photographs)
+                unrequited.half_my_world["D3VI"]:update(dt,unrequited.photographs)
 
                 -- fix power and update power to UI
                 if unrequited.half_my_world["cmd"].power > 100 then unrequited.half_my_world["cmd"].power = 100 end
                 unrequited.half_my_world["UI"]:getPower(unrequited.half_my_world["cmd"].power)
                 
                 -- if you mess up a command, subin gets mad at you
-                if unrequited.half_my_world["cmd"].failedcmd then unrequited.half_my_world["S0YB3AN"].current_effect = "SEISMIC" end
-
+                if unrequited.half_my_world["cmd"].failedcmd then unrequited.half_my_world["D3VI"].current_effect = "SEISMIC" end
+                if unrequited.half_my_world["cmd"].idle > 300 then unrequited.half_my_world["D3VI"].current_effect = "ANGER" end
                 -- if you run out of power, invoke bad ending. if you travelled your amount, invoke good ending
                 if not (unrequited.half_my_world["cmd"].power > 0) then 
                         unrequited.half_my_world["badend"].current_text = 1
@@ -79,7 +81,12 @@ function love.update(dt)
         end
 end
 
-function love.textinput(char) if game.currentstate == "CONTROL" then unrequited.half_my_world["cmd"]:textinput(char) end end
+function love.textinput(char) 
+        if game.currentstate == "CONTROL" then 
+                unrequited.half_my_world["cmd"]:textinput(char) 
+                unrequited.half_my_world["D3VI"]:textinput(char) 
+        end 
+end
 
 function love.keypressed(key,scancode,isrepeat) unrequited:keypressed(key,scancode,isrepeat) end
 
@@ -94,7 +101,8 @@ function love.draw()
                 unrequited.half_my_world["intro"]:draw()
         elseif game.currentstate == "CONTROL" then
                 unrequited.half_my_world["UI"]:draw()
-                unrequited.half_my_world["S0YB3AN"]:effects(unrequited.photographs)
+                unrequited.half_my_world["D3VI"]:draw()
+                unrequited.half_my_world["D3VI"]:effects(unrequited.photographs)
                 unrequited.half_my_world["cmd"]:draw()
         elseif game.currentstate == "RACE" then
                 unrequited.half_my_world["race"]:draw()
