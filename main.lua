@@ -3,10 +3,9 @@ local unrequited = require("unrequited")
 function love.load()
         game = {}
         game.xdim, game.ydim = 1200,600
-        game.title = "Airborne Rhapsody - jryzkns 2019"
+        game.title = "Skyborne Rhapsody - jryzkns 2019"
         game.states = {"STARTUP","BADEND","GOODEND","CONTROL","RACE","DODGE","CREDITS"}
         game.currentstate = "STARTUP"
-        -- game.currentstate = "CONTROL"
         unrequited:windowsetup(game.xdim,game.ydim,game.title)
         love.mouse.setVisible(false)
 
@@ -24,6 +23,7 @@ function love.update(dt)
         if game.currentstate == "GOODEND" or game.currentstate == "BADEND" then
                 if unrequited.half_my_world[string.lower(game.currentstate)].currentstate == "DONE" then
                         game.currentstate = "CREDITS"
+                        unrequited:closer_to_me("credits")
                 end
         end
         if unrequited.half_my_world["intro"].currentstate == "DONE" then 
@@ -36,11 +36,6 @@ function love.update(dt)
                 if unrequited.half_my_world["cmd"].failedcmd then
                         unrequited.half_my_world["S0YB3AN"].current_effect = "SEISMIC"
                 end
-
-                -- if unrequited.half_my_world["cmd"].idle > 500 and unrequited.half_my_world["S0YB3AN"].current_effect ~= "ANGER" then
-                --         unrequited.half_my_world["S0YB3AN"].current_effect = "ANGER"
-                -- end
-
                 if unrequited.half_my_world["cmd"].power <= 0 then 
                         unrequited.half_my_world["badend"].current_text = 1
                         unrequited.half_my_world["badend"].currentstate = "RUNNING"
@@ -99,25 +94,22 @@ function love.draw()
 
         if game.currentstate == "STARTUP" then 
                 unrequited.half_my_world["intro"]:draw()
-        elseif game.currentstate == "RACE" then
-                unrequited.half_my_world["race"]:draw()
-        elseif game.currentstate == "DODGE" then
-                unrequited.half_my_world["dodge"]:draw()
         elseif game.currentstate == "CONTROL" then
                 unrequited.half_my_world["UI"]:draw()
                 unrequited.half_my_world["S0YB3AN"]:effects(unrequited.photographs)
                 unrequited.half_my_world["cmd"]:draw()
                 -- unrequited.half_my_world["S0YB3AN"]:draw()
-        elseif game.currentstate == "GOODEND" then
-                unrequited.half_my_world["goodend"]:draw()
+        elseif game.currentstate == "RACE" then
+                unrequited.half_my_world["race"]:draw()
+        elseif game.currentstate == "DODGE" then
+                unrequited.half_my_world["dodge"]:draw()
         elseif game.currentstate == "BADEND" then
                 unrequited.half_my_world["badend"]:draw()
+        elseif game.currentstate == "GOODEND" then
+                unrequited.half_my_world["goodend"]:draw()
         elseif game.currentstate == "CREDITS" then
-                print("end!")
-                -- boop
+                unrequited.half_my_world["credits"]:draw()
         end
-        -- code in credits
-
 
         mouse()
 end

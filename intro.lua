@@ -20,7 +20,7 @@ intro.statuses = {"RUNNING","DONE","OVER"}
 intro.currentstate = "RUNNING"
 
 function intro:init()
-        intro.splash = love.graphics.newImage("base_vignette.png")
+        intro.splash = love.graphics.newImage("intro.png")
 end
 
 intro.xdim,intro.ydim = 0,0

@@ -14,7 +14,7 @@ badend.statuses = {"IDLE","RUNNING","DONE"}
 badend.currentstate = "IDLE"
 
 function badend:init()
-        badend.splash = love.graphics.newImage("base_vignette.png")
+        badend.splash = love.graphics.newImage("badend.png")
 end
 
 badend.xdim,badend.ydim = 0,0
@@ -23,7 +23,7 @@ function badend:getGameState(game) if game.xdim and game.ydim then badend.xdim,b
 function badend:keypressed(key,scancode,isrepeat)
         if badend.currentstate == "RUNNING" then
                 badend.current_text = badend.current_text + 1
-                if badend.current_text == 4 then
+                if badend.current_text > 4 then
                         badend.currentstate = "DONE"
                 end
         end

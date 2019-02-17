@@ -9,7 +9,7 @@ local initmsg = "HOPE-SS aviation System. Jekco™\n"..
 
 local cmd = {}
 
-cmd.prompt = "Chase@HOPE-SS> " -- this will dynamically change with the narrative
+cmd.prompt = "Chase@HOPE | SS> " -- this will dynamically change with the narrative
 
 cmd.power = 100
 cmd.command = ""
@@ -21,7 +21,7 @@ cmd.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",30)
 cmd.failedcmd = false
 cmd.idle = 0
 cmd.response = ""
-cmd.distance_covered = 49 -- easy mode
+cmd.distance_covered = 49
 cmd.modes = {"NONE","RACE","DODGE"}
 cmd.mode = "NONE"
 

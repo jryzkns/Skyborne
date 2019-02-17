@@ -2,13 +2,11 @@ local goodend = {}
 
 goodend.font = love.graphics.setNewFont("BebasNeue-Regular.ttf",20)
 
-
--- rewrite this piece
 goodend.text = {
-        "Despite the long journey, the HOPE-SS went through a series of unfortunate events that made the ship too damaged and exhausted to go on.",
-        "This ship was meant for bringing treasure back to civilation, but now it is no more than vessel for the treasure to remain lost.",
+        "Luckily, the HOPE-SS found an entire bundle of fuel cells while scouring the space for decompostable material",
+        "The ship is now full of treasures and supplies. Chase cranked open the furnace, turned on autopilot, and leaned back on his chair to enjoy himself",
         "The long haul is over.",
-        "Chase gazes out of the window, and the distant ancient nebula gazes back at him ever so peacefully..."
+        ""
 }
 
 goodend.current_text = 1
@@ -17,7 +15,7 @@ goodend.statuses = {"IDLE","RUNNING","DONE"}
 goodend.currentstate = "IDLE"
 
 function goodend:init()
-        goodend.splash = love.graphics.newImage("base_vignette.png")
+        goodend.splash = love.graphics.newImage("goodend.png")
 end
 
 goodend.xdim,goodend.ydim = 0,0
@@ -26,7 +24,7 @@ function goodend:getGameState(game) if game.xdim and game.ydim then goodend.xdim
 function goodend:keypressed(key,scancode,isrepeat)
         if goodend.currentstate == "RUNNING" then
                 goodend.current_text = goodend.current_text + 1
-                if goodend.current_text == 4 then
+                if goodend.current_text > 4 then
                         goodend.currentstate = "DONE"
                 end
         end
