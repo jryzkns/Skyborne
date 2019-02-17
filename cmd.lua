@@ -2,7 +2,7 @@ local initmsg = "HOPE-55 aviation System. Jekco™\n"..
                 "                         \\   /      \n"..
                 "            .\\___-/.\\-___/. \n"..
                 "                        ~`-'~      \n"..
-                "All Rights Reserved 2066.\n"..
+                "All Rights Reserved 3030.\n"..
                 "Invoke the `help` command to review flight instructions\n"..
                 "----------------------------------------------\n\n"
 
