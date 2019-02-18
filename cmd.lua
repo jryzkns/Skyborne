@@ -82,7 +82,7 @@ end
 function cmd.commandtable:PROSPECT()
 
         math.random(os.time())
-        cmd.mode = "DODGE"
+        -- cmd.mode = "DODGE"
         if math.random() <= 0.1 then cmd.mode = "DODGE" end
         cmd.commandtable:CLEAR()
         local result = math.random() > 0.4 and "EXTRACTION SUCCESS" or "NO APPLICABLE ENERGY SOURCE FOUND, DISENGAGING COLLECTED MATERIAL"
